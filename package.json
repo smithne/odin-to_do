@@ -1,0 +1,25 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "https://www.theodinproject.com/courses/javascript/lessons/todo-list",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --progress --mode=production",
+    "watch": "webpack --progress --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smithne/odin-to_do.git"
+  },
+  "author": "Nick Smith <smith.nicholas.ellis@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smithne/odin-to_do/issues"
+  },
+  "homepage": "https://github.com/smithne/odin-to_do#readme",
+  "devDependencies": {
+    "webpack": "^4.38.0",
+    "webpack-cli": "^3.3.6"
+  }
+}
