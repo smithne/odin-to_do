@@ -38,11 +38,19 @@ const todoListFactory = (listName) => {
 
 const uiController = (appElement, todoList) => {
 
-    const createNewProjectBtn = (container) => {
-        let parent = document.getElementById(container);
+    const createNewProjectBtn = () => {
+        let parent = document.getElementById(appElement);
         
+        const newProjectBtn = document.createElement("button");
+        newProjectBtn.innerHTML = "New Project";
+        newProjectBtn.addEventListener("click", () => {
+            console.log("new project button clicked");
+        });
+
+        parent.appendChild(newProjectBtn);
     }
 
+    return {createNewProjectBtn};
 }
 
 // app workflow
@@ -87,8 +95,11 @@ let project1 = projectFactory();
 project1.addTodo(todo1);
 project1.addTodo(todo2);
 
-todoList = todoListFactory("defaultList");
+let todoList = todoListFactory("defaultList");
 
 todoList.addProject(project1);
 
 console.log(project1.getTodos());
+
+let ui = uiController("app", todoList);
+ui.createNewProjectBtn();
