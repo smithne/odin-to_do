@@ -37,9 +37,9 @@ const todoListFactory = (listName) => {
 
 
 const uiController = (appElement, todoList) => {
+    const parent = document.getElementById(appElement);
 
     const createNewProjectBtn = () => {
-        let parent = document.getElementById(appElement);
         
         const newProjectBtn = document.createElement("button");
         newProjectBtn.innerHTML = "New Project";
@@ -50,7 +50,35 @@ const uiController = (appElement, todoList) => {
         parent.appendChild(newProjectBtn);
     }
 
-    return {createNewProjectBtn};
+    const displayProjects = () => {
+
+        const projectsContainer = document.createElement("div");
+        const projects = todoList.getProjects();
+        for (let i = 0; i < projects.length; i++) {
+            const projectDiv = document.createElement("div");
+            projectDiv.innerHTML = projects[i].projectName;
+            projectDiv.classList.add("project");
+            projectDiv.id = projects[i].projectName;
+
+            // iterate through to-dos in project
+            const todos = projects[i].getTodos();
+            for (let j = 0; j < todos.length; j++) {
+                const todoDiv = document.createElement("div");
+                todoDiv.innerHTML = todos[j].title;
+                todoDiv.classList.add("todo");
+                projectDiv.appendChild(todoDiv);
+            }
+
+            projectsContainer.appendChild(projectDiv);
+        }
+        console.log(todoList.getProjects());
+        parent.appendChild(projectsContainer);
+
+    }
+
+
+
+    return {createNewProjectBtn, displayProjects};
 }
 
 // app workflow
@@ -88,9 +116,9 @@ let todo2 = todoFactory("Take out Compost",
     "Tomorrow", "Medium");
 
 
-console.log(todo1);
+//console.log(todo1);
 
-let project1 = projectFactory();
+let project1 = projectFactory("Chores");
 
 project1.addTodo(todo1);
 project1.addTodo(todo2);
@@ -99,7 +127,8 @@ let todoList = todoListFactory("defaultList");
 
 todoList.addProject(project1);
 
-console.log(project1.getTodos());
+//console.log(project1.getTodos());
 
 let ui = uiController("app", todoList);
 ui.createNewProjectBtn();
+ui.displayProjects();
