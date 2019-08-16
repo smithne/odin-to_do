@@ -71,11 +71,18 @@ h1, h3, h4, h5, p {
 
 .project {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  text-transform: uppercase;
 }
 
-.todo {
-  text-transform: none;
+.project h2 {
+  text-transform: uppercase;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.todo h3 {
+  font-size: 1.25em;
+  display: inline-block;
+  margin-bottom: 15px;
 }
 
 /* buttons */
@@ -101,4 +108,16 @@ h1, h3, h4, h5, p {
 
 body {
   background-color: slategrey;
+}
+
+#newProjectOverlay {
+  position: fixed; /* Sit on top of the page content */
+  display: none; /* Hidden by default */
+  width: 50%; /* Full width (cover the whole page) */
+  height: 50%; /* Full height (cover the whole page) */
+  top: 25%; 
+  left: 25%;
+  background-color: rgba(0,0,0,0.75); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
 }

@@ -48,6 +48,7 @@ const uiController = (appElement, todoList) => {
             todoList.addProject(projectFactory("New Project"));
             console.log(todoList.getProjects());
             displayProjects();
+            //document.getElementById("newProjectOverlay").style.display = "block";
         });
 
         parent.appendChild(newProjectBtn);
@@ -58,14 +59,14 @@ const uiController = (appElement, todoList) => {
         const projectsContainer = document.getElementById("projectsDiv") || document.createElement("div");
         projectsContainer.id = "projectsDiv";
         projectsContainer.innerHTML = "";
-        
+
         const projects = todoList.getProjects();
         
         // iterate through each project
         for (let i = 0; i < projects.length; i++) {
             const projectDiv = document.createElement("div");
             
-            projectDiv.innerHTML = projects[i].projectName;
+            projectDiv.innerHTML = `<h2>${projects[i].projectName}</h2>`;
             projectDiv.classList.add("project");
             projectDiv.id = projects[i].projectName;
 
@@ -75,7 +76,7 @@ const uiController = (appElement, todoList) => {
             // add header row if project is not empty
             for (let j = 0; j < todos.length; j++) {
                 const todoDiv = document.createElement("div");
-                todoDiv.innerHTML = todos[j].title;
+                todoDiv.innerHTML = `<h3>${todos[j].title}</h3>`;
                 todoDiv.innerHTML += " " + todos[j].dueDate;
                 todoDiv.classList.add("todo");
                 projectDiv.appendChild(todoDiv);
