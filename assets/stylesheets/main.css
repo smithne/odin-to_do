@@ -69,6 +69,15 @@ h1, h3, h4, h5, p {
   margin-bottom: 20px;
 }
 
+.project {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-transform: uppercase;
+}
+
+.todo {
+  text-transform: none;
+}
+
 /* buttons */
 
 .btn {
