@@ -55,9 +55,10 @@ const uiController = (appElement, todoList) => {
 
     const displayProjects = () => {
 
-
-
-        const projectsContainer = document.createElement("div");
+        const projectsContainer = document.getElementById("projectsDiv") || document.createElement("div");
+        projectsContainer.id = "projectsDiv";
+        projectsContainer.innerHTML = "";
+        
         const projects = todoList.getProjects();
         
         // iterate through each project
