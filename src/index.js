@@ -43,8 +43,11 @@ const uiController = (appElement, todoList) => {
         
         const newProjectBtn = document.createElement("button");
         newProjectBtn.innerHTML = "New Project";
+        newProjectBtn.classList.add("btn");
         newProjectBtn.addEventListener("click", () => {
-            console.log("new project button clicked");
+            todoList.addProject(projectFactory("New Project"));
+            console.log(todoList.getProjects());
+            displayProjects();
         });
 
         parent.appendChild(newProjectBtn);
@@ -52,19 +55,27 @@ const uiController = (appElement, todoList) => {
 
     const displayProjects = () => {
 
+
+
         const projectsContainer = document.createElement("div");
         const projects = todoList.getProjects();
+        
+        // iterate through each project
         for (let i = 0; i < projects.length; i++) {
             const projectDiv = document.createElement("div");
+            
             projectDiv.innerHTML = projects[i].projectName;
             projectDiv.classList.add("project");
             projectDiv.id = projects[i].projectName;
 
             // iterate through to-dos in project
             const todos = projects[i].getTodos();
+
+            // add header row if project is not empty
             for (let j = 0; j < todos.length; j++) {
                 const todoDiv = document.createElement("div");
                 todoDiv.innerHTML = todos[j].title;
+                todoDiv.innerHTML += " " + todos[j].dueDate;
                 todoDiv.classList.add("todo");
                 projectDiv.appendChild(todoDiv);
             }
@@ -85,14 +96,11 @@ const uiController = (appElement, todoList) => {
     // V1: no storage - new list on page load
         // create new list on page load
 
-
 // ui elements
     // V1
         // button to create new project
         // display all projects
             // display all tasks for each project
-
-
 
 // objects
     // to-do item
