@@ -39,6 +39,18 @@ const todoListFactory = (listName) => {
 const uiController = (appElement, todoList) => {
     const parent = document.getElementById(appElement);
 
+    const initUi = () => {
+        const closeOverlayBtn = document.getElementById("closeOverlayBtn");
+        closeOverlayBtn.addEventListener("click", closeOverlay);
+        createNewProjectBtn();
+        displayProjects();
+    }
+    
+    const closeOverlay = () => {
+        document.getElementById("newProjectForm").reset();
+        document.getElementById("newProjectOverlay").style.display = "none";
+    }
+
     const createNewProjectBtn = () => {
         
         const newProjectBtn = document.createElement("button");
@@ -48,7 +60,7 @@ const uiController = (appElement, todoList) => {
             todoList.addProject(projectFactory("New Project"));
             console.log(todoList.getProjects());
             displayProjects();
-            //document.getElementById("newProjectOverlay").style.display = "block";
+            document.getElementById("newProjectOverlay").style.display = "block";
         });
 
         parent.appendChild(newProjectBtn);
@@ -91,7 +103,7 @@ const uiController = (appElement, todoList) => {
 
 
 
-    return {createNewProjectBtn, displayProjects};
+    return {initUi, displayProjects};
 }
 
 // app workflow
@@ -140,5 +152,4 @@ todoList.addProject(project1);
 //console.log(project1.getTodos());
 
 let ui = uiController("app", todoList);
-ui.createNewProjectBtn();
-ui.displayProjects();
+ui.initUi();
