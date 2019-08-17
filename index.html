@@ -7,7 +7,16 @@
   </head>
   <body>
     <div id="app" class="container">
-      <div id="newProjectOverlay"></div>
+      <div id="newProjectOverlay">
+        <div class="closeBtn">&times;</div>
+        <div class="formDiv">
+            <form action="_self" method="post">
+                <label for="projectName">Project Name:</label>
+                <input type="text" id="projectName" name="projectName">
+                <button type="button" id="createNewProjectBtn">Create project</button>
+            </form>
+        </div>
+      </div>
         
     </div>
 
