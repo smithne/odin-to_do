@@ -42,6 +42,12 @@ const uiController = (appElement, todoList) => {
     const initUi = () => {
         const closeOverlayBtn = document.getElementById("closeOverlayBtn");
         closeOverlayBtn.addEventListener("click", closeOverlay);
+
+        document.getElementById("createNewProjectBtn")
+            .addEventListener("click", () => {
+                createProject(document.getElementById("projectName").value);
+            });
+
         createNewProjectBtn();
         displayProjects();
     }
@@ -57,13 +63,18 @@ const uiController = (appElement, todoList) => {
         newProjectBtn.innerHTML = "New Project";
         newProjectBtn.classList.add("btn");
         newProjectBtn.addEventListener("click", () => {
-            todoList.addProject(projectFactory("New Project"));
-            console.log(todoList.getProjects());
             displayProjects();
             document.getElementById("newProjectOverlay").style.display = "block";
         });
 
         parent.appendChild(newProjectBtn);
+    }
+
+    const createProject = (projectName) => {
+        const newProject = projectFactory(projectName);
+        todoList.addProject(newProject);
+        closeOverlay();
+        displayProjects();
     }
 
     const displayProjects = () => {
@@ -100,8 +111,6 @@ const uiController = (appElement, todoList) => {
         parent.appendChild(projectsContainer);
 
     }
-
-
 
     return {initUi, displayProjects};
 }
