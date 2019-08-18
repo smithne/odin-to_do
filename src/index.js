@@ -77,7 +77,7 @@ const uiController = (appElement, todoList) => {
         displayProjects();
     }
 
-    const renderNewTaskForm = (divID) => {
+    const renderNewTaskForm = (divID, project) => {
         const containerNode = document.getElementById(divID)
         const elements = new Map([
             ["title", ["Task Name","text"]],
@@ -91,20 +91,30 @@ const uiController = (appElement, todoList) => {
         elements.forEach( (value, key) => {
             const label = document.createElement("label");
             label.innerHTML = value[0];
-            label.htmlFor = key;
+            label.htmlFor = "newTask_" + key;
             form.appendChild(label);
 
             const input = document.createElement("input");
             input.type = value[1];
-            input.id = key;
-            input.name = key;
+            input.id = "newTask_" + key;
+            input.name = "newTask_" + key;
             form.appendChild(input);
         });
         const createBtn = document.createElement("button");
         createBtn.innerHTML = "Create";
         createBtn.type = "button";
-        createBtn.addEventListener("click", () => {
+        createBtn.addEventListener("click", (e) => {
             console.log("Submit new task");
+            console.log(e.target.parentElement.elements);
+            const title = document.getElementById("newTask_title").value;
+            const description = document
+                .getElementById("newTask_description").value;
+            const dueDate = document.getElementById("newTask_dueDate").value;
+            const priority = document.getElementById("newTask_priority").value;
+            //const title = e.path
+            const newTodo = todoFactory(title, description, dueDate, priority);
+            project.addTodo(newTodo);
+            displayProjects();
         });
         form.appendChild(createBtn);
         containerNode.parentNode.insertBefore(form, containerNode.nextSibling);
@@ -150,7 +160,7 @@ const uiController = (appElement, todoList) => {
             createTaskBtn.classList.add("createTaskBtn");
             createTaskBtn.id = `createTask_${projects[i].projectName}`;
             createTaskBtn.addEventListener("click", () => {
-                renderNewTaskForm(createTaskBtn.id);
+                renderNewTaskForm(createTaskBtn.id, projects[i]);
             });
             createTaskBtn.innerHTML = "Create New Task";
             projectDiv.appendChild(createTaskBtn);
