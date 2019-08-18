@@ -40,8 +40,8 @@ const uiController = (appElement, todoList) => {
     const parent = document.getElementById(appElement);
 
     const initUi = () => {
-        const closeOverlayBtn = document.getElementById("closeOverlayBtn");
-        closeOverlayBtn.addEventListener("click", closeOverlay);
+        document.getElementById("closeOverlayBtn")
+            .addEventListener("click", closeOverlay);
 
         document.getElementById("createNewProjectBtn")
             .addEventListener("click", () => {
@@ -77,6 +77,47 @@ const uiController = (appElement, todoList) => {
         displayProjects();
     }
 
+    const renderNewTaskForm = (divID) => {
+        const containerNode = document.getElementById(divID)
+        const elements = new Map([
+            ["title", ["Task Name","text"]],
+            ["description", ["Description","text"]],
+            ["dueDate", ["Due Date", "date"]],
+            ["priority", ["Priority", "text"]]
+        ]);
+        
+        const form = document.createElement("form");
+
+        elements.forEach( (value, key) => {
+            const label = document.createElement("label");
+            label.innerHTML = value[0];
+            label.htmlFor = key;
+            form.appendChild(label);
+
+            const input = document.createElement("input");
+            input.type = value[1];
+            input.id = key;
+            input.name = key;
+            form.appendChild(input);
+        });
+        const createBtn = document.createElement("button");
+        createBtn.innerHTML = "Create";
+        createBtn.type = "button";
+        createBtn.addEventListener("click", () => {
+            console.log("Submit new task");
+        });
+        form.appendChild(createBtn);
+        containerNode.parentNode.insertBefore(form, containerNode.nextSibling);
+
+        console.log("creating new task form for: " + divID);
+    }
+
+    //<form action="_self" method="post" id="newProjectForm">
+    //            <label for="projectName">Project Name:</label>
+    //            <input type="text" id="projectName" name="projectName"></input>
+    //            <button type="button" id="createNewProjectBtn">Create project</button>
+    //</form>
+
     const displayProjects = () => {
 
         const projectsContainer = document.getElementById("projectsDiv") || document.createElement("div");
@@ -104,7 +145,15 @@ const uiController = (appElement, todoList) => {
                 todoDiv.classList.add("todo");
                 projectDiv.appendChild(todoDiv);
             }
-
+            
+            const createTaskBtn = document.createElement("button");
+            createTaskBtn.classList.add("createTaskBtn");
+            createTaskBtn.id = `createTask_${projects[i].projectName}`;
+            createTaskBtn.addEventListener("click", () => {
+                renderNewTaskForm(createTaskBtn.id);
+            });
+            createTaskBtn.innerHTML = "Create New Task";
+            projectDiv.appendChild(createTaskBtn);
             projectsContainer.appendChild(projectDiv);
         }
         console.log(todoList.getProjects());
